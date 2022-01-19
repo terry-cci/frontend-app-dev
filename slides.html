@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Mini Slides.com</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="slides.css" />
+  </head>
+  <body>
+    <main id="app" class="slides" v-cloak>
+      <h1>
+        Mini Slides.com
+      </h1>
+
+      <div>
+        <button v-if="editing" @click="setEditing(false)">Present</button>
+        <button v-else @click="setEditing(true)">Edit</button>
+      </div>
+
+      <div class="slides__page-container">
+        <transition :name="`swipe-${swipeDirection}`" v-if="editing">
+          <form
+            class="slides__page"
+            :key="activePageKey"
+            @reset.prevent="resetEditForm"
+            @submit.prevent="saveEditForm"
+          >
+            <input
+              type="text"
+              v-model="activePageClone.title"
+              class="slides__page-title slides__page-editing-input"
+            />
+            <textarea
+              cols="30"
+              rows="10"
+              v-model="activePageClone.content"
+              class="slides__page-content slides__page-editing-input"
+            ></textarea>
+            <div class="slides__page-actions">
+              <button type="submit">
+                Submit
+              </button>
+
+              <button type="reset">Reset</button>
+            </div>
+
+            <div class="slides__page-group-actions">
+              <button type="button" @click="addPageInActiveGroup">
+                Add SubPage
+              </button>
+              <button type="button" @click="addPageGroup">Add PageGroup</button>
+            </div>
+          </form>
+        </transition>
+
+        <transition :name="`swipe-${swipeDirection}`" v-else>
+          <article class="slides__page" :key="activePageKey">
+            <h1 class="slides__page-title">{{ activePage.title }}</h1>
+            <p class="slides__page-content">{{ activePage.content }}</p>
+          </article>
+        </transition>
+
+        <div class="slides__controller">
+          <button
+            class="slides__controller-btn slides__controller-btn-up"
+            v-show="activePageIdx.idx > 0"
+            @click="moveToPageInGroup(activePageIdx.idx - 1)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 15l7-7 7 7"
+              />
+            </svg>
+          </button>
+
+          <button
+            class="slides__controller-btn slides__controller-btn-right"
+            v-show="activePageIdx.group < pageGroups.length - 1"
+            @click="moveToPageGroup(activePageIdx.group + 1)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
+
+          <button
+            class="slides__controller-btn slides__controller-btn-down"
+            v-show="activePageIdx.idx < activePageGroup.length - 1"
+            @click="moveToPageInGroup(activePageIdx.idx + 1)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </button>
+
+          <button
+            class="slides__controller-btn slides__controller-btn-left"
+            v-show="activePageIdx.group > 0"
+            @click="moveToPageGroup(activePageIdx.group - 1)"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <footer>
+        page {{ activePageIdx.group }}.{{ activePageIdx.idx }}
+      </footer>
+    </main>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="slides.js"></script>
+  </body>
+</html>

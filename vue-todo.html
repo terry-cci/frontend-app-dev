@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Vue Todo List</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+    <link rel="stylesheet" href="vue-todo.css" />
+  </head>
+  <body>
+    <main id="app" class="todo-list" v-cloak>
+      <h1 class="todo-list__title">
+        Vue Todo List ({{ doneTodo.length }} / {{ todoList.length }})
+      </h1>
+
+      <ul class="todo-list__list">
+        <li
+          v-for="(item, idx) in todoList"
+          :style="{backgroundColor: item.color}"
+          class="todo-list__list-item"
+        >
+          <input type="checkbox" v-model="item.done" />
+          <span class="todo-list__item-name">
+            {{ item.name }}
+          </span>
+          <button @click="editTodo(idx)" class="todo-list__item-btn">
+            Edit
+          </button>
+          <button @click="deleteTodo(idx)" class="todo-list__item-btn">
+            Delete
+          </button>
+        </li>
+      </ul>
+
+      <form @submit.prevent="saveNewTodo" class="todo-list__new-todo-form">
+        <label for="new-todo-name"
+          >{{ editingTodoIdx !== null ? "Update Todo" : "New Todo Item" }}:
+        </label>
+        <input
+          type="text"
+          id="new-todo-name"
+          v-model="newTodoForm.name"
+          class="todo-list__new-todo-name"
+        />
+        <input
+          type="color"
+          v-model="newTodoForm.color"
+          class="todo-list__new-todo-color"
+        />
+
+        <button class="todo-list__new-todo-btn">
+          {{ editingTodoIdx !== null ? "Update" : "Add" }}
+        </button>
+      </form>
+    </main>
+
+    <script src="https://unpkg.com/vue@next"></script>
+    <script src="vue-todo.js"></script>
+  </body>
+</html>

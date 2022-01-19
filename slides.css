@@ -1,0 +1,208 @@
+.slides {
+  position: relative;
+  width: 95%;
+  min-height: 95vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.slides .slides__page-container {
+  flex-grow: 1;
+  border: 1px solid #333;
+  margin: 1rem 0;
+  position: relative;
+
+  overflow: hidden;
+}
+
+.slides .slides__page {
+  position: absolute;
+  padding: 2rem;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  font-family: serif;
+}
+.slides .slides__page-title {
+  font-family: inherit;
+  font-size: 1.5rem;
+  margin: 0.83rem 0;
+  font-weight: bold;
+}
+
+.slides .slides__page-content {
+  font-family: inherit;
+  margin: 1rem 0;
+  font-size: 1rem;
+}
+
+.slides .slides__page-editing-input {
+  background: transparent;
+  color: unset;
+  padding: 0.5rem 1rem;
+  border: 1px solid #eee;
+  resize: none;
+}
+
+.slides .slides__page-group-actions {
+  margin-top: 2rem;
+}
+
+.slides footer {
+  color: #aaa;
+  margin-top: 1rem;
+}
+
+.slides__controller {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  width: 6rem;
+  height: 6rem;
+}
+
+.slides__controller-btn {
+  background: transparent;
+  border: none;
+  color: inherit;
+
+  position: absolute;
+  padding: 0;
+}
+
+.slides__controller-btn svg {
+  width: 2rem;
+}
+
+.slides__controller-btn-up {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slides__controller-btn-right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.slides__controller-btn-down {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.slides__controller-btn-left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* transitions */
+.swipe-up-enter-active,
+.swipe-up-leave-active,
+.swipe-down-enter-active,
+.swipe-down-leave-active,
+.swipe-left-enter-active,
+.swipe-left-leave-active,
+.swipe-right-enter-active,
+.swipe-right-leave-active {
+  animation-duration: 0.5s;
+}
+
+.swipe-up-enter-active {
+  animation-name: swipe-up-in;
+}
+.swipe-up-leave-active {
+  animation-name: swipe-up-out;
+}
+
+.swipe-right-enter-active {
+  animation-name: swipe-right-in;
+}
+.swipe-right-leave-active {
+  animation-name: swipe-right-out;
+}
+
+.swipe-down-enter-active {
+  animation-name: swipe-down-in;
+}
+.swipe-down-leave-active {
+  animation-name: swipe-down-out;
+}
+
+.swipe-left-enter-active {
+  animation-name: swipe-left-in;
+}
+.swipe-left-leave-active {
+  animation-name: swipe-left-out;
+}
+
+@keyframes swipe-up-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100%);
+  }
+}
+@keyframes swipe-up-in {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes swipe-right-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+@keyframes swipe-right-in {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes swipe-down-out {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+@keyframes swipe-down-in {
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes swipe-left-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes swipe-left-in {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
